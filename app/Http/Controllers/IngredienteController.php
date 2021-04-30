@@ -14,17 +14,7 @@ class IngredienteController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Ingrediente::all();
     }
 
     /**
@@ -35,7 +25,28 @@ class IngredienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ingrediente = new Ingrediente();
+
+        $ingrediente->Nombre = $request->nombre;
+        $ingrediente->Coste = $request->coste;
+
+        $ingrediente->save();
+    }
+
+    /**
+     * Create a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $ingrediente = new Ingrediente();
+
+        $ingrediente->Nombre = $request->nombre;
+        $ingrediente->Coste = $request->coste;
+
+        $ingrediente->save();
     }
 
     /**
@@ -44,20 +55,9 @@ class IngredienteController extends Controller
      * @param  \App\Models\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function show(Ingrediente $ingrediente)
+    public function show(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Ingrediente  $ingrediente
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ingrediente $ingrediente)
-    {
-        //
+        return Ingrediente::FindOrFail($request->id);
     }
 
     /**
@@ -67,9 +67,31 @@ class IngredienteController extends Controller
      * @param  \App\Models\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ingrediente $ingrediente)
+    public function update(Request $request)
     {
-        //
+        $ingrediente = Ingrediente::FindOrFail($request->id);
+
+        $ingrediente->Nombre = $request->nombre;
+        $ingrediente->Coste = $request->coste;
+
+        $ingrediente->save();
+    }
+
+    /**
+     * edit the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Ingrediente  $ingrediente
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request)
+    {
+        $ingrediente = Ingrediente::FindOrFail($request->id);
+
+        $ingrediente->Nombre = $request->nombre;
+        $ingrediente->Coste = $request->coste;
+
+        $ingrediente->save();
     }
 
     /**
@@ -78,8 +100,9 @@ class IngredienteController extends Controller
      * @param  \App\Models\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ingrediente $ingrediente)
+    public function destroy(Request $request)
     {
-        //
+        $ingrediente = Ingrediente::destroy($request->id);
+        return $ingrediente;
     }
 }

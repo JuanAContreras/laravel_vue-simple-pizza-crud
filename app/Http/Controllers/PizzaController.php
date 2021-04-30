@@ -14,17 +14,7 @@ class PizzaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Pizza::all();
     }
 
     /**
@@ -35,7 +25,7 @@ class PizzaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -45,17 +35,6 @@ class PizzaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Pizza $pizza)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pizza  $pizza
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pizza $pizza)
     {
         //
     }

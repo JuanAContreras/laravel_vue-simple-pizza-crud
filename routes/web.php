@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\IngredienteController ;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::get('/home', function () {
     return view('home');
-});
+})->middleware('auth');
+
+Route::get('/dashboard', function() {
+    return view('dashboard');
+})->middleware('auth');
 
 Route::resource('pedido', PedidoController::class);
 
