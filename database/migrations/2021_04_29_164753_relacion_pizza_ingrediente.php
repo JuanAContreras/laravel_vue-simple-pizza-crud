@@ -13,7 +13,7 @@ class RelacionPizzaIngrediente extends Migration
      */
     public function up()
     {
-        Schema::create('pizza_ingerdiente', function (Blueprint $table) {
+        Schema::create('ingrediente_pizza', function (Blueprint $table) {
             $table->unsignedBigInteger('pizza_id');
             $table->foreign('pizza_id')
                 ->references('id')

@@ -13,6 +13,6 @@ class Ingrediente extends Model
      * Devuelve las pizzas que contienen el ingrediente
      */
     public function pizza(){
-        return $this->hasOne(Pizza::class);
+        return $this->belongsToMany(Pizza::class);
     }
 }

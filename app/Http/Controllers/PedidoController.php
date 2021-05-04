@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\models\Pizza;
+use App\Models\Ingrediente;
+use App\models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
 {
@@ -14,7 +18,35 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+        $pedidos = Pedido::all();
+        $result = array();
+
+        foreach($pedidos as $p){
+            $user = User::find($p->user_id);
+            $auxPedido = array(
+                'id' => $p->id,
+                'user' => $user->name.": ".$user->email,
+                'pizzas' => [],
+                'factura' => 0,
+                'created_at' => date('d-m-Y H:i', strtotime($p->created_at)),
+            );
+            $pizzaList = $p->pizzas()->get();
+
+            // Añadir pizzas y sus costes
+            foreach($pizzaList as $pizza){
+                $auxPedido['pizzas'][] = $pizza->id;
+                $ingredientes = $pizza->ingredientes()->get();
+
+                foreach($ingredientes as $ing){
+                    $auxPedido['factura'] += $ing->Coste;
+                }
+            }
+
+            $auxPedido['pizzas'] = implode(', ', $auxPedido['pizzas']);
+            $result[] = $auxPedido;
+        }
+
+        return $result;
     }
 
     /**
@@ -22,9 +54,9 @@ class PedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return "no implementado";
     }
 
     /**
@@ -35,7 +67,22 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::find($request->user);
+        $pedido = $user->pedidos()->create();
+
+        foreach($request->data as $ingredientList){
+            $pizza = $pedido->pizzas()->create();
+            $pizza->coste = 0;
+            foreach($ingredientList as $id_ingrediente){
+                $ingrediente = Ingrediente::find($id_ingrediente);
+                $pizza->coste += $ingrediente->Coste;
+                $pizza->ingredientes()->attach($id_ingrediente);
+            }
+            $pizza->save();
+        }
+        $pedido->save();
+
+        return $pedido;
     }
 
     /**
@@ -46,7 +93,7 @@ class PedidoController extends Controller
      */
     public function show(Pedido $pedido)
     {
-        //
+        return 'no implementado';
     }
 
     /**
@@ -57,7 +104,7 @@ class PedidoController extends Controller
      */
     public function edit(Pedido $pedido)
     {
-        //
+        return 'no implementado';
     }
 
     /**
@@ -69,7 +116,7 @@ class PedidoController extends Controller
      */
     public function update(Request $request, Pedido $pedido)
     {
-        //
+        return 'no implementado';
     }
 
     /**
@@ -80,6 +127,6 @@ class PedidoController extends Controller
      */
     public function destroy(Pedido $pedido)
     {
-        //
+        return $pedido->delete();
     }
 }

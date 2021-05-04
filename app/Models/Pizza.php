@@ -14,7 +14,7 @@ class Pizza extends Model
      *  */
     public function pedido()
     {
-        return $this->hasOne(Pedido::class);
+        return $this->belongsTo(Pedido::class);
     }
 
     /**

@@ -16,6 +16,7 @@ class CreatePizzasTable extends Migration
         Schema::create('pizzas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pedido_id');
+            $table->unsignedBigInteger('coste')->default(0);
             $table->foreign('pedido_id')
                 ->references('id')
                 ->on('pedidos')

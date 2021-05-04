@@ -29,8 +29,8 @@ Route::get('/dashboard', function() {
     return view('dashboard');
 })->middleware('auth');
 
-Route::resource('pedido', PedidoController::class);
+Route::resource('/pedido', PedidoController::class);
 
-Route::resource('pizza', PizzaController::class);
+Route::resource('/pizza', PizzaController::class);
 
-Route::resource('ingrediente', IngredienteController::class);
+Route::resource('/ingrediente', IngredienteController::class);

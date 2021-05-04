@@ -31,6 +31,8 @@ class IngredienteController extends Controller
         $ingrediente->Coste = $request->coste;
 
         $ingrediente->save();
+
+        return $ingrediente;
     }
 
     /**
@@ -47,6 +49,8 @@ class IngredienteController extends Controller
         $ingrediente->Coste = $request->coste;
 
         $ingrediente->save();
+
+        return $ingrediente;
     }
 
     /**
@@ -100,9 +104,8 @@ class IngredienteController extends Controller
      * @param  \App\Models\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Ingrediente $ingrediente)
     {
-        $ingrediente = Ingrediente::destroy($request->id);
-        return $ingrediente;
+        return $ingrediente->delete();
     }
 }

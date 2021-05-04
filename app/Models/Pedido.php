@@ -20,6 +20,6 @@ class Pedido extends Model
      * Devuelve las pizzas de un pedido
      */
     public function pizzas(){
-        return $this->belongsToMany(Pizza::class);
+        return $this->hasMany(Pizza::class);
     }
 }
